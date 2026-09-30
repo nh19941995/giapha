@@ -53,7 +53,23 @@ h1{font-family:"Noto Serif",Georgia,"Times New Roman",serif;font-weight:600;font
 .ch>.it{position:relative}
 .ch>.it::before{content:"";position:absolute;left:-20px;top:17px;width:14px;border-top:1px solid var(--line)}
 .it:not(.o)>.ch{display:none}
+.r{cursor:pointer}.r:hover .nm{text-decoration:underline}
+.r.sel .nm{color:var(--acc)}
+.dt{margin:4px 0 12px 26px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:4px;padding:12px 16px;font-size:14px}
+.dt h3{font-family:"Noto Serif",Georgia,serif;font-size:17px;font-weight:600;margin:0 0 8px}
+.dt dl{display:grid;grid-template-columns:110px 1fr;gap:5px 14px;margin:0}
+.dt dt{color:var(--mut)}.dt dd{margin:0}
+@media (max-width:520px){.dt{margin-left:8px}.dt dl{grid-template-columns:88px 1fr}}
+.it.x{display:none}
+#pt{display:none;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:4px;padding:10px 14px;margin:0 0 14px;font-size:14px;line-height:1.8;color:var(--mut)}
+#pt b{color:var(--ink);font-weight:500}
 #none{display:none;color:var(--mut);margin:8px 0}
+.ct{margin-top:36px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:4px;padding:16px 20px}
+.ct h2{font-family:"Noto Serif",Georgia,serif;font-size:18px;font-weight:600;margin:0 0 8px}
+.ct p{margin:0 0 6px;font-size:14px}
+.ct a{color:var(--acc);font-weight:500;text-decoration:none}
+.ct a:hover{text-decoration:underline}
+.ct+.ft{margin-top:20px}
 .ft{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
 @media (max-width:520px){.wrap{padding:28px 16px 40px}.ch{padding-left:14px}.ch>.it::before{left:-14px;width:10px}}
 </style>
@@ -81,9 +97,16 @@ h1{font-family:"Noto Serif",Georgia,"Times New Roman",serif;font-weight:600;font
 <button id="b1">Chỉ đến đời IV</button>
 </div>
 <div class="lg" id="lg"></div>
+<div id="pt" aria-live="polite"></div>
 <div id="tree"></div>
 <p id="none">Không tìm thấy người nào khớp với từ khóa.</p>
-<p class="ft">Số thứ tự đánh theo thứ tự trong gia phả: 1.1 là con cả của cụ Tuệ, 1.1.2 là con thứ hai của 1.1, và tiếp tục như vậy. Bấm vào một người để mở hoặc thu gọn con cháu. Nhãn con trai, con gái của các cháu nhỏ được suy từ tên, nên hãy soát lại trước khi dùng chính thức.</p>
+<section class="ct" id="lien-he" aria-label="Thông tin người lập">
+<h2>Người lập gia phả</h2>
+<p><b>Nguyễn Trung Hiếu</b></p>
+<p>Điện thoại: <a href="tel:0773307333">0773307333</a></p>
+<p>Ai muốn bổ sung, cập nhật hoặc sửa đổi thông tin trong gia phả, xin liên hệ theo số điện thoại trên.</p>
+</section>
+<p class="ft">Số thứ tự đánh theo thứ tự trong gia phả: 1.1 là con cả của cụ Tuệ, 1.1.2 là con thứ hai của 1.1, và tiếp tục như vậy. Bấm vào tên để xem thông tin chi tiết, bấm mũi tên để mở hoặc thu gọn con cháu. Nhãn con trai, con gái của các cháu nhỏ được suy từ tên, nên hãy soát lại trước khi dùng chính thức.</p>
 </main>
 <script>
 var L=["III","IV","V","VI","VII"];
@@ -126,7 +149,7 @@ else if(m==='mẹ đơn thân')ch.push(tag('pa','Mẹ đơn thân'));
 else if(/không lập gia đình|chưa kết hôn/.test(m))ch.push(tag('st',m.charAt(0).toUpperCase()+m.slice(1)));
 else if(/mất lúc/.test(m)){l2.unshift('<span>'+m+'</span>');ch.push(tag('st','Đã mất'))}
 else{l2.unshift('<span>'+m+'</span>');if(/–/.test(m))ch.push(tag('st','Đã mất'))}});
-var h='<div class="it'+(g<3?' o':'')+'" data-g="'+g+'"><div class="r'+(k?' k':'')+'"'+(k?' role="button" tabindex="0" aria-expanded="'+(g<3)+'"':'')+'>';
+var h='<div class="it'+(g<3?' o':'')+'" data-g="'+g+'"><div class="r'+(k?' k':'')+'"'+' role="button" tabindex="0"'+(k?' aria-expanded="'+(g<3)+'"':'')+'>';
 h+='<span class="cv">'+(k?'▶':'')+'</span><i class="d" style="background:var(--g'+g+')"></i><span class="cn"><span class="l1"><span class="no">'+p+'</span><span class="nm">'+n[0]+'</span>';
 if(par)h+=tag(x==='t'?'tr':x==='g'?'ga':'st',x==='t'?'Con trai':x==='g'?'Con gái':'Con');
 if(kn)h+=tag('pa',(x==='t'?'Cha':x==='g'?'Mẹ':'Cha/Mẹ')+' · '+kn+' con');
@@ -140,14 +163,67 @@ document.getElementById('st').innerHTML='<div><b>5</b><span>đời (III đến V
 var items=[].slice.call(tree.querySelectorAll('.it')),q=document.getElementById('q'),none=document.getElementById('none');
 function fold(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[đĐ]/g,'d').toLowerCase()}
 function sync(){items.forEach(function(it){var r=it.firstChild;if(r.classList.contains('k'))r.setAttribute('aria-expanded',it.classList.contains('o'))})}
-function setD(m){items.forEach(function(it){it.classList.toggle('o',+it.dataset.g<m);it.firstChild.classList.remove('hit')});q.value='';none.style.display='none';sync()}
+var pt=document.getElementById('pt');
+function setD(m){items.forEach(function(it){it.classList.toggle('o',+it.dataset.g<m);it.classList.remove('x');it.firstChild.classList.remove('hit')});q.value='';none.style.display='none';pt.style.display='none';sync()}
 function find(){var s=fold(q.value.trim());if(!s){setD(3);return}
+var hits=items.filter(function(it){return fold(it.firstChild.textContent).indexOf(s)>-1}),keep=new Set();
 items.forEach(function(it){it.classList.remove('o');it.firstChild.classList.remove('hit')});
-var n=0;items.forEach(function(it){var r=it.firstChild;if(fold(r.textContent).indexOf(s)>-1){n++;r.classList.add('hit');var a=it.parentNode.closest('.it');while(a){a.classList.add('o');a=a.parentNode.closest('.it')}}});
-none.style.display=n?'none':'block';sync()}
-function tg(e){var r=e.target.closest('.r.k');if(r){r.parentNode.classList.toggle('o');sync()}}
-tree.addEventListener('click',tg);
-tree.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();tg(e)}});
+hits.forEach(function(it){it.firstChild.classList.add('hit');it.classList.add('o');keep.add(it);
+[].forEach.call(it.querySelectorAll('.it'),function(d){keep.add(d)});
+var a=it.parentNode.closest('.it');while(a){keep.add(a);a.classList.add('o');a=a.parentNode.closest('.it')}});
+items.forEach(function(it){it.classList.toggle('x',!keep.has(it))});
+none.style.display=hits.length?'none':'block';
+if(!hits.length){pt.style.display='none'}
+else if(hits.length>3){pt.innerHTML='Tìm thấy <b>'+hits.length+' người</b>. Cây chỉ hiện đường đi từ cụ Tuệ tới họ.';pt.style.display='block'}
+else{pt.innerHTML=hits.map(function(h){var n=[],a=h;while(a){n.unshift(a.firstChild.querySelector('.nm').textContent);a=a.parentNode.closest('.it')}
+return n.map(function(x,i){return i===n.length-1?'<b>'+x+'</b>':x}).join(' › ')}).join('<br>');pt.style.display='block'}
+sync()}
+var D={
+"Nguyễn Xuân Tuệ":"Sinh:1892 (Nhâm Thìn)|Mất:8/12/1954 (Giáp Ngọ)|Quê quán:Xã Đại Nài, huyện Thạch Hà, Hà Tĩnh|Nghề nghiệp:Thầy thuốc Đông y|Học vấn:Nho học|Định cư:Xóm Xả Tắc, thị xã Hà Tĩnh|Song thân:Ông Nguyễn Xuân (2 vợ) và bà Trần Thị Luân (chính thất)|Vợ:Lê Thị Tư (1892 – 27/9/1967), quê Đại Nài, buôn bán nhỏ|Mộ phần:Ông hung táng tại nghĩa trang Đại Nài, cát táng tại nghĩa trang họ Nguyễn Xuân, Chùa Thiều. Bà hung táng tại Chùa Thiều, cát táng tại Rậm Sim",
+"Nguyễn Xuân Sâm":"Sinh:1922 (Nhâm Tuất)|Mất:24/12 (Kỷ Sửu)|Nghề nghiệp:Thời Pháp thuộc là tư thương, kháng chiến chống Mỹ vào HTX xe thồ, sau chiến tranh kinh doanh ăn uống|Công tác:Dân quân du kích chống Pháp, đội trưởng dân công hỏa tuyến Trung Lào, Huân chương kháng chiến hạng 3|Định cư:Cửa Hữu đến 1962, khu phố Lâm Phước Thọ, từ 2003 tại số 02 ngõ 10 Lý Tự Trọng, P. Thành Sen|Vợ:Trần Thị Mai (1923 – mất 21/12 Giáp Thân), sinh quán xóm Xả Tắc, con ông Trần Hậu Thận, kinh doanh ăn uống|Số con:10|Mộ phần:Lăng mộ chi họ Nguyễn Xuân Tuệ, nghĩa trang Rậm Sim, P. Hà Huy Tập",
+"Nguyễn Thị Linh":"Sinh:1925 (Ất Sửu)|Mất:1993 (Quý Dậu)|Nghề nghiệp:Buôn bán nhỏ|Định cư:Xóm Xả Tắc, P. Thành Sen|Hôn nhân:Không lấy chồng|Mộ phần:Hung táng nghĩa trang Thạch Yên, cát táng nghĩa trang Rậm Sim",
+"Nguyễn Thị Cúc":"Nghề nghiệp:Công nhân nông trường, đã nghỉ hưu|Định cư:Phan Rang – Tháp Chàm, Ninh Thuận|Chồng:Nguyễn Viết Ngưu (1927), quê TP Huế, cán bộ tập kết, về sáng tác tại Ninh Thuận, đã nghỉ hưu|Số con:6",
+"Nguyễn Thị Thảo":"Sinh:1929|Nghề nghiệp:Xã viên HTX nông nghiệp, buôn bán nhỏ|Chồng:Trần Viết Thao (1926)|Định cư:Xóm Xả Tắc, ngõ 10 Lý Tự Trọng, P. Thành Sen|Con:Trần Viết Lâm, Trần Viết Hồng",
+"Nguyễn Xuân Kỳ":"Sinh:1946|Mất:22/4 Mậu Tuất (2018)|Nghề nghiệp:Công nhân lái máy kéo, đã nghỉ hưu|Công lao:Thanh niên xung phong chống Mỹ 1966–1972, Huân chương kháng chiến chống Mỹ hạng 1, 2, 3|Vợ:Nguyễn Thị Minh (1949), quê Thạch Việt, Thạch Hà|Số con:4 (1 trai, 3 gái)|Mộ phần:Rậm Sim, P. Hà Huy Tập",
+"Nguyễn Xuân Nam":"Sinh:1944|Mất:14/10 Canh Tý (28/10/2020)|Học vấn:Kỹ sư|Nghề nghiệp:Giám đốc Công ty Điện, sau học Quốc tế Nội Bài, hưu trí|Công lao:Quân nhân QĐND Việt Nam 1967–1976, Huân chương Chiến sĩ giải phóng và Huân chương kháng chiến hạng 1, 2, 3, đảng viên|Vợ:Nguyễn Thị Nga (1959), quê khu phố Trần Đức Vịnh, P. Nam Hà|Số con:2 gái|Mộ phần:Rậm Sim, P. Hà Huy Tập",
+"Nguyễn Xuân Thìn":"Sinh:1952|Mất:19/12 Kỷ Hợi (13/01/2020)|Học vấn:Sơ cấp máy tàu sông biển|Nghề nghiệp:Thợ máy tàu biển, thợ rèn, xã viên HTX thủ công nghiệp|Vợ:Nguyễn Thị Vinh (1957), quê thị trấn Cày, Thạch Hà|Số con:3 (2 trai, 1 gái)|Mộ phần:Rậm Sim, P. Hà Huy Tập",
+"Nguyễn Xuân Mùi":"Sinh:1955|Mất:11/01 Ất Dậu (19/2/2005)|Học vấn:Trung cấp công nghiệp rừng|Nghề nghiệp:Cán bộ Lâm trường Trà My, Quảng Nam – Đà Nẵng|Công lao:Bộ đội lái xe thời chiến tranh biên giới phía Nam, đã nghỉ hưu|Vợ:Nguyễn Thị Chi (1956), công nhân Lâm trường Trà My, tham gia quân giải phóng lúc 15 tuổi, định cư tổ dân phố 5, P. Tân Giang|Mộ phần:Rậm Sim, P. Hà Huy Tập",
+"Nguyễn Thị Bình":"Sinh:1957|Mất:2021|Nghề nghiệp:Xã viên HTX thủ công nghiệp|Chồng:Lê Ngọc Nam, công nhân lái xe Công ty Vận tải ô tô Hà Tĩnh, đã nghỉ hưu|Số con:4 (3 gái, 1 trai)|Định cư:P. Đại Nài|Mộ phần:Nghĩa trang Đại Nài",
+"Nguyễn Xuân Nghĩa":"Sinh:17/10/1959|Học vấn:10/10|Nghề nghiệp:Kinh doanh dịch vụ|Công lao:Quân nhân thời chiến tranh biên giới phía Bắc, trung đội trưởng|Vợ:Đặng Thị Hà (20/8/1969), kinh doanh ăn uống|Định cư:90 Phan Đình Giót, P. Thành Sen|Số con:2",
+"Nguyễn Thị Nguyệt":"Sinh:1961|Nghề nghiệp:Xã viên HTX thủ công nghiệp thợ gò, kinh doanh chế biến thực phẩm|Hôn nhân:Mẹ đơn thân|Con:Nguyễn Thị Kim Dung (1991)|Trú quán:Đường Nguyễn Công Trứ, P. Thành Sen",
+"Nguyễn Thị Cẩm":"Sinh:1964|Nghề nghiệp:Xã viên HTX thủ công nghiệp, kinh doanh hàng tiêu dùng|Hôn nhân:Không lập chồng|Trú quán:Số 02 ngõ 10 Lý Tự Trọng, P. Thành Sen",
+"Nguyễn Thị Tuyết":"Sinh:1967|Nghề nghiệp:Công nhân đóng da, về quê kinh doanh thực phẩm ở chợ|Hôn nhân:Mẹ đơn thân|Con:Nguyễn Thị Thùy Dương, Nguyễn Đình Đạt|Trú quán:Đường 26/3, P. Thành Sen",
+"Nguyễn Xuân Lưu":"Sinh:1972|Học vấn:Cao đẳng nghề, Thái Nguyên|Nghề nghiệp:Kinh doanh chế biến thực phẩm, thợ hàn|Vợ đầu:Trần Thị Hiền, có 1 con gái (Nguyễn Thị Quỳnh)|Vợ thứ hai:Lê Thị Phương Linh, quê P. Thành Sen, có 3 con trai",
+"Nguyễn Thị Huyền":"Sinh:1974|Nghề nghiệp:Công nhân khu công nghiệp|Chồng:Tô Vĩnh Kiên (1973)|Con:Tô Hà Đức (1998), Tô Khánh Ly (2004), Tô Vĩnh Phú (2010)",
+"Nguyễn Thị Nhung":"Sinh:21/07/1977|Nghề nghiệp:Spa làm đẹp|Chồng:Nguyễn Công Bé (1973)|Con:Nguyễn Công Tuấn Anh (11/04/2011)",
+"Nguyễn Thị Lụa (Hạnh)":"Tên thường gọi:Nguyễn Thị Hạnh|Sinh:27/3/1981|Nghề nghiệp:Làm vườn, trang trại|Trú quán:Lâm Đồng|Chồng:Lê Văn Quý (10/01/1974)|Con:Lê Thu Hằng (07/12/2001), Lê Thảo My (05/07/2007)",
+"Nguyễn Thúy Hằng":"Sinh:20/11/1982|Học vấn:Đại học|Nghề nghiệp:An ninh sân bay Quốc tế Nội Bài|Chồng:Đặng Đình Phương (1981), nghiệp vụ hàng không|Trú quán:Khu tập thể Sân bay Quốc tế Nội Bài|Con:Đặng Hà My (08/03/2007), Đặng Gia Bảo (12/2011)",
+"Nguyễn Thị Hải":"Sinh:25/12/1987|Học vấn:Đại học Công nghiệp Hà Nội|Nghề nghiệp:Nghiệp vụ hàng không, sân bay Nội Bài|Chồng:Vũ Minh Tuấn (1986), nghiệp vụ hàng không|Trú quán:Xuân Giang, Đa Phúc, Hà Nội|Con:Vũ Đức Huy (06/09/2015), Vũ Minh Hoàng (12/2017)",
+"Nguyễn Xuân Tuấn":"Tên thường gọi:Nguyễn Xuân Long|Sinh:1975|Mất:2002|Học vấn:12/12 THPT|Nghề nghiệp:Bảo vệ Ban quản lý Chợ Hà Tĩnh|Hôn nhân:Chưa kết hôn|Mộ phần:Nghĩa trang Cồn Bóng, Thành Sen",
+"Nguyễn Xuân Lực":"Sinh:1976|Học vấn:Cao đẳng|Nghề nghiệp:Cán bộ kỹ thuật nhà máy nước sinh hoạt Hà Tĩnh|Vợ:Lê Thị Mai Hương (1983), cao đẳng Dược, Công ty Dược Hà Tĩnh|Con:Nguyễn Thị Hà Vi (2006), Nguyễn Trường Giang (2012)",
+"Nguyễn Thị Phượng":"Sinh:1992|Học vấn:Cao đẳng Dược|Nghề nghiệp:Nhân viên công ty dược phẩm|Chồng:Lê Văn Bảo (1991)|Trú quán:P. Hà Tĩnh|Con:Lê Ngọc Hân (2017), Lê Tuệ Nhi (2020)",
+"Nguyễn Giao Hưởng":"Tên thường gọi:Nguyễn Quảng Hà|Sinh:13/07/1984|Học vấn:Học viện Chính trị, Lục quân|Nghề nghiệp:Sĩ quan Quân đội nhân dân Việt Nam|Vợ:Đậu Thị Hải (18/02/1988), giáo viên đại học|Trú quán:Tổ dân phố 5, P. Tân Giang, nay là P. Thành Sen|Con:Nguyễn Trà My (2014), Nguyễn Minh Khang (2017), Nguyễn Ngọc Quỳnh Anh (17/08/2026)",
+"Nguyễn Thị Đỗ Quyên":"Sinh:1/7/1985|Học vấn:Đại học|Nghề nghiệp:Cán bộ Thuế|Chồng:Nguyễn Quang (16/08/1982), đại học, cán bộ ngân hàng|Trú quán:P. Đồng Hới, Quảng Trị|Con:Nguyễn Quân (2012), Nguyễn Minh (2013), Nguyễn Ngọc Minh Khánh (2018)",
+"Nguyễn Thị Thu Hương":"Sinh:1991|Học vấn:Đại học|Nghề nghiệp:Nhân viên văn phòng",
+"Nguyễn Trung Hiếu":"Sinh:1993|Học vấn:Đại học|Nghề nghiệp:Kỹ sư cầu đường",
+"Nguyễn Thị Quỳnh":"Sinh:1992|Học vấn:PTTH|Trú quán:Thị trấn Cày, Thạch Hà",
+"Nguyễn Xuân Hoàng":"Sinh:19/08/2000|Nghề nghiệp:Công nhân",
+"Nguyễn Xuân Hải":"Sinh:30/11/2007|Nghề nghiệp:Lao động tự do",
+"Nguyễn Thị Hà Vi":"Sinh:2006|Học vấn:Đại học Ngoại thương"};
+function tgl(it){it.classList.toggle('o');sync()}
+function pick(it){var r=it.firstChild,old=tree.querySelector('.dt'),was=old&&old.parentNode===it;
+if(old){old.previousSibling.classList.remove('sel');old.remove()}
+if(was)return;r.classList.add('sel');
+var nm=r.querySelector('.nm').textContent,pa=it.parentNode.closest('.it'),f=['Đời:'+L[+it.dataset.g],'Số thứ tự:'+r.querySelector('.no').textContent];
+if(pa)f.push('Con của:'+pa.firstChild.querySelector('.nm').textContent);
+f=f.concat(D[nm]?D[nm].split('|'):['Thông tin:'+r.querySelector('.l2').textContent]);
+r.insertAdjacentHTML('afterend','<div class="dt"><h3>'+nm+'</h3><dl>'+f.map(function(x){var i=x.indexOf(':');return '<dt>'+x.slice(0,i)+'</dt><dd>'+x.slice(i+1)+'</dd>'}).join('')+'</dl></div>')}
+tree.addEventListener('click',function(e){var it=e.target.closest('.it');if(!it||e.target.closest('.dt'))return;
+if(e.target.closest('.cv')){if(it.firstChild.classList.contains('k'))tgl(it);return}
+if(e.target.closest('.r'))pick(it)});
+tree.addEventListener('keydown',function(e){var r=e.target.closest('.r');if(!r||e.target.closest('.dt'))return;
+if(e.key==='Enter'){e.preventDefault();pick(r.parentNode)}
+else if(e.key===' '){e.preventDefault();if(r.classList.contains('k'))tgl(r.parentNode)}});
 q.addEventListener('input',find);
 document.getElementById('b9').onclick=function(){setD(9)};
 document.getElementById('b3').onclick=function(){setD(3)};
