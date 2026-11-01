@@ -423,10 +423,13 @@ h1::after{width:60px;height:2px;background:#c5a373;margin-top:20px}
 </div>
 <div id="gv" hidden=""></div>
 <div id="tv" hidden>
-<details class="flight-settings" id="flightSettings" open>
-<summary>Tùy chỉnh chuyển động <span>Khoảng cách · Sao cha · Sao con</span></summary>
+<details class="flight-settings" id="advancedSettings">
+<summary>Cài đặt nâng cao <span>Cấu hình mô phỏng</span></summary>
+<details class="flight-settings" id="flightSettings">
+<summary>Cấu hình sao <span>Khoảng cách · Sao cha · Sao con</span></summary>
 <p class="flight-note">Kéo thanh hoặc nhập số để áp dụng ngay. “đv” là đơn vị trong không gian mô phỏng, không phải pixel màn hình. Thông số áp dụng cho giai đoạn bay; bố cục cây cuối giữ nguyên.</p>
-<div class="flight-grid"><div class="flight-field"><label for="cfg-gapX">Khoảng cách ngang gia đình</label><div class="flight-inputs"><input id="cfg-gapX" data-flight="gapX" type="range" min="260" max="1400" step="20" value="520"><input aria-label="Khoảng cách ngang gia đình: nhập số" data-flight-number="gapX" type="number" min="260" max="1400" step="20" value="520"><span>đv</span></div><small>Khoảng cách cơ bản; nhánh đông con được dành thêm chỗ.</small></div><div class="flight-field"><label for="cfg-gapY">Khoảng cách dọc giữa các đời</label><div class="flight-inputs"><input id="cfg-gapY" data-flight="gapY" type="range" min="300" max="1400" step="20" value="760"><input aria-label="Khoảng cách dọc giữa các đời: nhập số" data-flight-number="gapY" type="number" min="300" max="1400" step="20" value="760"><span>đv</span></div><small>Tăng để các thế hệ cách xa nhau hơn.</small></div><div class="flight-field"><label for="cfg-fatherRange">Phạm vi bay sao chủ / sao cha</label><div class="flight-inputs"><input id="cfg-fatherRange" data-flight="fatherRange" type="range" min="0" max="250" step="5" value="100"><input aria-label="Phạm vi bay sao chủ / sao cha: nhập số" data-flight-number="fatherRange" type="number" min="0" max="250" step="5" value="100"><span>%</span></div><small>0%: đứng tại tâm; 100%: phạm vi hiện tại.</small></div><div class="flight-field"><label for="cfg-fatherSpeed">Tốc độ đổi hướng sao cha</label><div class="flight-inputs"><input id="cfg-fatherSpeed" data-flight="fatherSpeed" type="range" min="0" max="250" step="5" value="100"><input aria-label="Tốc độ đổi hướng sao cha: nhập số" data-flight-number="fatherSpeed" type="number" min="0" max="250" step="5" value="100"><span>%</span></div><small>Tăng để sao cha đổi hướng thường xuyên hơn.</small></div><div class="flight-field"><label for="cfg-childRange">Độ dao động riêng của sao con</label><div class="flight-inputs"><input id="cfg-childRange" data-flight="childRange" type="range" min="0" max="300" step="5" value="100"><input aria-label="Độ dao động riêng của sao con: nhập số" data-flight-number="childRange" type="number" min="0" max="300" step="5" value="100"><span>%</span></div><small>0%: chỉ đi theo cha, không tự dao động.</small></div><div class="flight-field"><label for="cfg-childSpeed">Tốc độ dao động sao con</label><div class="flight-inputs"><input id="cfg-childSpeed" data-flight="childSpeed" type="range" min="0" max="250" step="5" value="100"><input aria-label="Tốc độ dao động sao con: nhập số" data-flight-number="childSpeed" type="number" min="0" max="250" step="5" value="100"><span>%</span></div><small>Tăng để sao con chuyển động nhanh hơn quanh cha.</small></div><div class="flight-field"><label for="cfg-childX">Độ tỏa ngang của sao con</label><div class="flight-inputs"><input id="cfg-childX" data-flight="childX" type="range" min="20" max="180" step="2" value="48"><input aria-label="Độ tỏa ngang của sao con: nhập số" data-flight-number="childX" type="number" min="20" max="180" step="2" value="48"><span>đv</span></div><small>Khoảng lệch trái / phải so với sao cha.</small></div><div class="flight-field"><label for="cfg-childY">Khoảng cách dọc giữa sao con</label><div class="flight-inputs"><input id="cfg-childY" data-flight="childY" type="range" min="20" max="100" step="2" value="46"><input aria-label="Khoảng cách dọc giữa sao con: nhập số" data-flight-number="childY" type="number" min="20" max="100" step="2" value="46"><span>đv</span></div><small>Khoảng cách giữa các con trong cùng gia đình.</small></div></div><div class="flight-actions"><button type="button" id="flightReset">Khôi phục mặc định</button><span id="flightSaveStatus" role="status">Tự lưu trên trình duyệt này.</span></div></details>
+<div class="flight-grid"><div class="flight-field"><label for="cfg-gapX">Khoảng cách ngang gia đình</label><div class="flight-inputs"><input id="cfg-gapX" data-flight="gapX" type="range" min="260" max="1400" step="20" value="520"><input aria-label="Khoảng cách ngang gia đình: nhập số" data-flight-number="gapX" type="number" min="260" max="1400" step="20" value="520"><span>đv</span></div><small>Các gia đình cùng đời đứng cạnh nhau; chỉ chèn chỗ khi gia đình mới xuất hiện.</small></div><div class="flight-field"><label for="cfg-gapY">Khoảng cách dọc giữa các đời</label><div class="flight-inputs"><input id="cfg-gapY" data-flight="gapY" type="range" min="300" max="1400" step="20" value="760"><input aria-label="Khoảng cách dọc giữa các đời: nhập số" data-flight-number="gapY" type="number" min="300" max="1400" step="20" value="760"><span>đv</span></div><small>Tăng để các thế hệ cách xa nhau hơn.</small></div><div class="flight-field"><label for="cfg-fatherRange">Phạm vi bay sao chủ / sao cha</label><div class="flight-inputs"><input id="cfg-fatherRange" data-flight="fatherRange" type="range" min="0" max="250" step="5" value="100"><input aria-label="Phạm vi bay sao chủ / sao cha: nhập số" data-flight-number="fatherRange" type="number" min="0" max="250" step="5" value="100"><span>%</span></div><small>0%: đứng tại tâm; 100%: phạm vi hiện tại.</small></div><div class="flight-field"><label for="cfg-fatherSpeed">Tốc độ đổi hướng sao cha</label><div class="flight-inputs"><input id="cfg-fatherSpeed" data-flight="fatherSpeed" type="range" min="0" max="250" step="5" value="100"><input aria-label="Tốc độ đổi hướng sao cha: nhập số" data-flight-number="fatherSpeed" type="number" min="0" max="250" step="5" value="100"><span>%</span></div><small>Tăng để sao cha đổi hướng thường xuyên hơn.</small></div><div class="flight-field"><label for="cfg-childRange">Độ dao động riêng của sao con</label><div class="flight-inputs"><input id="cfg-childRange" data-flight="childRange" type="range" min="0" max="300" step="5" value="100"><input aria-label="Độ dao động riêng của sao con: nhập số" data-flight-number="childRange" type="number" min="0" max="300" step="5" value="100"><span>%</span></div><small>0%: chỉ đi theo cha, không tự dao động.</small></div><div class="flight-field"><label for="cfg-childSpeed">Tốc độ dao động sao con</label><div class="flight-inputs"><input id="cfg-childSpeed" data-flight="childSpeed" type="range" min="0" max="250" step="5" value="100"><input aria-label="Tốc độ dao động sao con: nhập số" data-flight-number="childSpeed" type="number" min="0" max="250" step="5" value="100"><span>%</span></div><small>Tăng để sao con chuyển động nhanh hơn quanh cha.</small></div><div class="flight-field"><label for="cfg-childX">Độ tỏa ngang của sao con</label><div class="flight-inputs"><input id="cfg-childX" data-flight="childX" type="range" min="20" max="180" step="2" value="48"><input aria-label="Độ tỏa ngang của sao con: nhập số" data-flight-number="childX" type="number" min="20" max="180" step="2" value="48"><span>đv</span></div><small>Khoảng lệch trái / phải so với sao cha.</small></div><div class="flight-field"><label for="cfg-childY">Khoảng cách dọc giữa sao con</label><div class="flight-inputs"><input id="cfg-childY" data-flight="childY" type="range" min="20" max="100" step="2" value="46"><input aria-label="Khoảng cách dọc giữa sao con: nhập số" data-flight-number="childY" type="number" min="20" max="100" step="2" value="46"><span>đv</span></div><small>Khoảng cách giữa các con trong cùng gia đình.</small></div></div><div class="flight-actions"><button type="button" id="flightReset">Khôi phục mặc định</button><span id="flightSaveStatus" role="status">Tự lưu trên trình duyệt này.</span></div></details>
+</details>
 <div class="tls" id="tls">
 <canvas id="tlc" aria-label="Dòng thời gian gia phả"></canvas>
 <canvas class="tl-rl" id="tlR"></canvas>
@@ -761,7 +764,24 @@ var FLIGHT_SPEC={"gapX": {"min": 260, "max": 1400, "step": 20, "value": 520}, "g
 function normalizeFlight(key,value){var d=FLIGHT_SPEC[key];value=Number(value);if(!Number.isFinite(value))return d.value;return Math.max(d.min,Math.min(d.max,Math.round(value/d.step)*d.step))}
 Object.keys(FLIGHT_SPEC).forEach(function(k){flightConfig[k]=FLIGHT_SPEC[k].value});
 try{var storedFlight=JSON.parse(localStorage.getItem(FLIGHT_KEY)||'{}');if(storedFlight&&typeof storedFlight==='object')Object.keys(FLIGHT_SPEC).forEach(function(k){if(typeof storedFlight[k]==='number')flightConfig[k]=normalizeFlight(k,storedFlight[k])})}catch(_){}
-function applyFlightLayout(){G.forEach(function(g){g.homeX=g.baseHomeX*flightConfig.gapX/520;g.span=g.baseSpan*flightConfig.gapX/520;g.homeY=-g.depth*flightConfig.gapY})}
+function applyFlightLayout(){
+G.forEach(function(g){
+g.peers=G.filter(function(q){return q.depth===g.depth}).sort(function(a,b){return a.baseHomeX-b.baseHomeX||a.i-b.i});
+g.span=flightConfig.gapX;g.homeY=-g.depth*flightConfig.gapY;
+g.homeX=familyRowX(g,w);
+})}
+/* Time-based insertion keeps seeking and historical wake samples consistent.
+   Future families occupy no space; new families smoothly open their own slot. */
+function familyRowX(g,t){
+var row=g.peers||[g],before=0,total=0,own=0,found=false;
+for(var j=0;j<row.length;j++){
+var q=row[j],weight=sm((t-q.p.gw)/MV);
+if(q===g){own=weight;found=true}else if(!found)before+=weight;
+total+=weight;
+}
+var spacing=flightConfig.gapX+Math.max(0,flightConfig.childX-48)*2;
+return (before+own/2-total/2)*spacing;
+}
 function syncFlightControls(){Object.keys(FLIGHT_SPEC).forEach(function(k){document.querySelector('[data-flight="'+k+'"]').value=flightConfig[k];document.querySelector('[data-flight-number="'+k+'"]').value=flightConfig[k]})}
 function saveFlight(){var el=document.getElementById('flightSaveStatus');try{localStorage.setItem(FLIGHT_KEY,JSON.stringify(flightConfig));el.textContent='Đã lưu trên trình duyệt này.'}catch(_){el.textContent='Đã áp dụng; trình duyệt không cho phép lưu lâu dài.'}}
 function updateFlight(key,value){flightConfig[key]=normalizeFlight(key,value);applyFlightLayout();syncFlightControls();saveFlight();if(typeof mode!=='undefined'&&mode!=='free')zT=null}
@@ -957,9 +977,9 @@ function driftNoise(seed,t){var k=Math.floor(t),u=t-k,base=(hash(seed)*429496729
 function sample(j){var h=(base^Math.imul(j,0x9e3779b1))>>>0;h=Math.imul(h^(h>>>16),0x85ebca6b);h=Math.imul(h^(h>>>13),0xc2b2ae35);return((h^(h>>>16))>>>0)/4294967295*2-1}
 u=u*u*u*(u*(u*6-15)+10);var a=sample(k),b=sample(k+1);return a+(b-a)*u}
 function wander(p,t){t*=flightConfig.fatherSpeed/100;var scale=flightConfig.fatherRange/100;ox=scale*(96*driftNoise(p.nm+'x',t/4.8)+22*driftNoise(p.nm+'x2',t/2.7));oy=scale*(68*driftNoise(p.nm+'y',t/5.7)+16*driftNoise(p.nm+'y2',t/3.1))}
-function gx(g,t){wander(g.p,t);return g.homeX+ox}
+function gx(g,t){wander(g.p,t);return familyRowX(g,t)+ox}
 function gy(g,t){wander(g.p,t);return g.homeY+oy}
-function relayout(){totW=0;for(var i=0;i<G.length;i++){var g=G[i];g.W=gW(g,w)+160+Math.max(0,flightConfig.childX-48)*2;var bot=-90-Math.max(0,g.p.kids.length-1)*flightConfig.childY-70;g.cy0=(200+bot)/2;g.ry=(200-bot)/2+90;g.X=gx(g,w);g.cy=gy(g,w)+g.cy0;totW=Math.max(totW,g.X+g.W/2)}}
+function relayout(){totW=0;for(var i=0;i<G.length;i++){var g=G[i];g.homeX=familyRowX(g,w);g.W=gW(g,w)+160+Math.max(0,flightConfig.childX-48)*2;var bot=-90-Math.max(0,g.p.kids.length-1)*flightConfig.childY-70;g.cy0=(200+bot)/2;g.ry=(200-bot)/2+90;g.X=gx(g,w);g.cy=gy(g,w)+g.cy0;totW=Math.max(totW,g.X+g.W/2)}}
 
 /* ---------- vị trí: bố mẹ dẫn đầu phía trên, con anh cao em thấp vờn phía sau ---------- */
 function hvf(p,t,a){var q=p.ph;ox=a*(Math.sin(t*.95+q[0])+.55*Math.sin(t*1.9+q[1]));oy=a*.8*(Math.sin(t*.8+q[2])+.55*Math.sin(t*1.55+q[3]))}
@@ -1059,16 +1079,19 @@ pos(i,t);TX[k]=rx;TY[k]=ry;
 /* Advect older light downward at 240 world units/s. Keep a small vertical
    response to the original path, bounded so no segment can point upward. */
 var previousRawY=TY[0],rawY,flutter;
-for(k=1;k<=NT;k++){
+for(k=1;!p.sp&&k<=NT;k++){
 rawY=TY[k];
 if(!Number.isFinite(rawY)||!Number.isFinite(previousRawY)){previousRawY=rawY;continue}
 flutter=clamp((rawY-previousRawY)*.25,-60*TD,60*TD);
 TY[k]=TY[k-1]-240*TD+flutter;previousRawY=rawY;
 }
+/* Main stars retain the same wake shape at three times its length.
+   Incoming partners keep their actual flight trail until they form a family. */
+if(!p.sp)for(k=1;k<=NT;k++){TX[k]=TX[0]+3*(TX[k]-TX[0]);TY[k]=TY[0]+3*(TY[k]-TY[0])}
 for(k=0;k<NT;k++){
 dx=TX[k+1]-TX[k];dy=TY[k+1]-TY[k];len=Math.hypot(dx,dy);
 /* Reject zero-length samples and discontinuous jumps, not a long connecting beam. */
-TV[k]=Number.isFinite(len)&&len>1e-6&&len<100?1:0;
+TV[k]=Number.isFinite(len)&&len>1e-6&&len<(p.sp?100:300)?1:0;
 TS[k]=TV[k]?len/TD:0;
 }
 for(k=0;k<=NT;k++){
@@ -1089,7 +1112,7 @@ savedX=rx,savedY=ry,tailTime=Math.min(w,Wt-4),finalPhase=mph(w);
 for(i=0;i<n;i++){
 p=P[i];o=i*NT*4;
 /* Clear stale geometry on rewind, births and after the wake has expired. */
-if(p.sp||!p.group||w<p.gw||w<p.t0||(finalPhase===0&&p.wd<1e8&&w>p.wd+FLYT+TAIL_LIFE)){
+if((p.sp?w>=p.wa:(!p.group||w<p.gw))||w<p.t0||(finalPhase===0&&p.wd<1e8&&w>p.wd+FLYT+TAIL_LIFE)){
 for(k=0;k<NT*4;k++){j=(o+k)*3;c=(o+k)*4;TP[j]=TP[j+1]=TP[j+2]=0;TC[c+3]=0}continue}
 tailPath(i,tailTime);
 for(k=0;k<NT;k++){
@@ -1099,7 +1122,7 @@ h=k+(v>=2?1:0);t=tailTime-h*TD;age=h*TD;
 speed=h===0?TS[0]:h===NT?TS[NT-1]:Math.min(TS[h-1],TS[h]);
 /* Emission follows speed at that historical point, not the star's current speed.
    Previously emitted light stays on its path and decays after the star stops. */
-emit=sm((speed-3)/32)*sm((t-p.t0)/.18)*sm((t-p.gw)/.4);
+emit=sm((speed-3)/32)*sm((t-p.t0)/.18)*(p.sp?1:sm((t-p.gw)/.4));
 if(p.wd<1e8)emit*=Math.max(sm(finalPhase/.15),1-sm((t-p.wd-FLYT*.65)/(FLYT*.35)));
 fade=Math.exp(-age/.68)*(1-sm((age-TAIL_LIFE*.72)/(TAIL_LIFE*.28)));
 /* Width is in world units; camera movement cannot change the underlying wake. */
